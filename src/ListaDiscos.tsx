@@ -1,5 +1,7 @@
 import React from 'react';
 import { ledZeppelin, acdc, queen, pinkFloyd } from './InfoDiscos';
+import { Link } from 'react-router-dom';
+
 
 type Album = {
   id: number;
@@ -15,7 +17,9 @@ interface ListaDiscosProps {
 
 const ListaDiscos = ({ titulo, albums }: ListaDiscosProps) => (
   <div className="bg-neutral-800 p-4 rounded-xl shadow-md">
+    <Link to={`/category/${encodeURIComponent(titulo)}`}>
     <h2 className="text-xl font-semibold mb-4 text-white text-center">{titulo}</h2>
+    </Link>
     
     <div className="flex gap-10 overflow-x-auto px-3 scrollbar-hide">
       {albums.map((album) => (
