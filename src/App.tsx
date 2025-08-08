@@ -6,6 +6,9 @@ import CancionesCategoria from './pages/CancionesCategoria';
 import Favoritos from './pages/Favoritos';
 import Portada from './pages/Portada';
 import type { Cancion } from './InfoCanciones';
+import { DetalleAlbum } from './pages/DetalleAlbum';
+import NuevaCancion from './pages/NuevaCancion';
+
 
 
 
@@ -37,7 +40,9 @@ function App() {
               <Route path="/" element={<Portada />} />
               <Route path="/canciones" element={<ListaCanciones />} />
               <Route path="/cancion/:id" element={<DetalleCancion />} />
+              <Route path="/album/:id" element={<DetalleAlbum />} />
               <Route path="/category/:id" element={<CancionesCategoria toggleFavorito={toggleFavorito}/>} />
+              <Route path="/nueva" element={<NuevaCancion />} />
               <Route path="/favoritos" element={<Favoritos favoritos={favoritos} toggleFavorito={toggleFavorito} />}/>
             </Routes>
           </Router>
