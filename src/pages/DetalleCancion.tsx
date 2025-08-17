@@ -1,16 +1,32 @@
 import { useParams } from 'react-router-dom';
-import { canciones } from '../InfoCanciones';
+import { useEffect, useState } from 'react';
+import { musicService } from '../../MOCKS/music/service';
+import type { Cancion } from '../types/Cancion';
 import CancionCard from '../components/CancionCard';
-import type { Cancion } from '../InfoCanciones';
 
-interface Props {
-  toggleFavorito: (cancion: Cancion) => void;
-}
-
-const DetalleCancion = ({ toggleFavorito }: Props) => {
+const DetalleCancion = () => {
   const { id } = useParams();
-  const cancionId = parseInt(id || '', 10);
-  const cancion = canciones.find((c) => c.id === cancionId);
+  const [cancion, setCancion] = useState<Cancion | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCancion = async () => {
+      try {
+        const song = await musicService.getSongById(id || '');
+        setCancion(song);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCancion();
+  }, [id]);
+
+  if (loading) {
+    return <p className="text-white p-6">Cargando canción...</p>;
+  }
 
   if (!cancion) {
     return <p className="text-white p-6">Canción no encontrada.</p>;
@@ -19,7 +35,7 @@ const DetalleCancion = ({ toggleFavorito }: Props) => {
   return (
     <div className="text-white p-6">
       <h2 className="text-2xl font-bold mb-4">Detalle de la canción</h2>
-      <CancionCard cancion={cancion} toggleFavorito={toggleFavorito} />
+      <CancionCard cancion={cancion} />
     </div>
   );
 };

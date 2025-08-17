@@ -31,6 +31,9 @@ const Portada = () => {
             >
               Ver todas las canciones
             </Link>
+            <Link to="/nueva" className="bg-red-600 hover:bg-white-700 text-white font-bold py-2 px-4 rounded">
+              Agregar nueva canción
+            </Link>
           </div>
           <div className="relative w-80">
             <input
