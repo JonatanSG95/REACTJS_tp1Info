@@ -1,14 +1,15 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { musicService } from '../../MOCKS/music/service';
+import { type Song } from '../../MOCKS/music/music.js';
 
 export const DetalleAlbum = () => {
   const { id } = useParams();
-  const [cancion, setCancion] = useState(null);
+  const [cancion, setCancion] = useState<Song | null>(null);
 
   useEffect(() => {
     musicService.getAllSongs().then((songs) => {
-      const encontrada = songs.find((s) => s.id === Number(id));
+      const encontrada = songs.find((s: Song) => s.id === Number(id));
       setCancion(encontrada);
     });
   }, [id]);

@@ -17,22 +17,18 @@ const CancionesCategoria = ({ toggleFavorito }: CancionesCategoriaProps) => {
 
   // Filtrar canciones por banda
   const cancionesFiltradas = canciones.filter(
-    (c) => c.banda.toLowerCase() === bandaSeleccionada.toLowerCase()
+    (c) => c.artist.toLowerCase() === bandaSeleccionada.toLowerCase()
   );
 
   // Enlazar cada canción con su portada de disco
   const cancionesConPortada = cancionesFiltradas.map((cancion) => {
-    const disco = todosLosDiscos.find((d) => d.titulo === cancion.album);
+    const disco = todosLosDiscos.find((d) => d.title === cancion.album);
     return {
       ...cancion,
-      portada: disco?.imagen || '',
+      portada: disco?.cover || '',
     };
   });
 
-  interface CancionesCategoriaProps {
-  toggleFavorito: (cancion: Cancion) => void;
-  esFavorito: (cancion: Cancion) => boolean;
-  }
 
   return (
     <div className="text-white p-6">
@@ -46,8 +42,7 @@ const CancionesCategoria = ({ toggleFavorito }: CancionesCategoriaProps) => {
             <CancionCard
               key={cancion.id}
               cancion={cancion}
-              toggleFavorito={toggleFavorito}
-            />
+              toggleFavorito={toggleFavorito} esFavorito={false}            />
           ))}
         </div>
       )}

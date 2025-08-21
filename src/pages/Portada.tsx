@@ -12,7 +12,7 @@ const Portada = () => {
     const [cancionActual, setCancionActual] = useState<Cancion | null>(null);
 
     const cancionesFiltradas = canciones.filter((cancion) =>
-    cancion.titulo.toLowerCase().includes(busqueda.toLowerCase())
+    cancion.title.toLowerCase().includes(busqueda.toLowerCase())
     );
 
   return (
@@ -53,7 +53,7 @@ const Portada = () => {
                       setBusqueda('');
                     } }
                   >
-                    <strong>{cancion.titulo}</strong> — {cancion.banda} ({cancion.album})
+                    <strong>{cancion.title}</strong> — {cancion.artist} ({cancion.album})
                   </li>
                 ))}
               </ul>
@@ -73,7 +73,7 @@ const Portada = () => {
 
 
 
-        <Reproductor cancion={cancionActual} />
+        <Reproductor cancion={cancionActual ?? undefined} />
 
       </div>
   );

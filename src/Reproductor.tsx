@@ -12,7 +12,7 @@ const Reproductor: React.FC<ReproductorProps> = ({ cancion }) => {
   const [currentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {
-    let intervalo: NodeJS.Timeout | null = null;
+    let intervalo: number | null = null;
 
     if (reproduciendo && cancion) {
       intervalo = setInterval(() => {
@@ -45,7 +45,7 @@ const Reproductor: React.FC<ReproductorProps> = ({ cancion }) => {
       {cancion ? (
         <>
           <p className="text-center font-semibold mb-1">
-             {cancion.titulo} - {cancion.banda}
+             {cancion.title} - {cancion.artist}
           </p>
           <p className="text-center mb-1">
              {cancion.album}

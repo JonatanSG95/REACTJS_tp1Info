@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { musicService } from '../../MOCKS/music/service';
-import type { Cancion } from '../types/Cancion';
+import type { Cancion } from '../InfoCanciones';
 import CancionCard from '../components/CancionCard';
 
 const DetalleCancion = () => {

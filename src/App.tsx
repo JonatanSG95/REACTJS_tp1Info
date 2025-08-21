@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ListaCanciones from './pages/ListaCanciones';
 import DetalleCancion from './pages/DetalleCancion';
@@ -28,9 +28,7 @@ function App() {
       }
     };
 
-    const esFavorito = (cancion: Cancion) => {
-      return favoritos.some((f) => f.id === cancion.id);
-    };
+    
 
     
   return (
