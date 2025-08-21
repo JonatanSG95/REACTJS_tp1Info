@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { musicService } from "../../MOCKS/music/service";
 import { useNavigate } from "react-router-dom";
+import type { Song } from "../../MOCKS/music/music";
 
 export default function NuevaCancion() {
   const queryClient = useQueryClient();
@@ -19,12 +20,12 @@ export default function NuevaCancion() {
     description: "",
   });
 
-  const mutation = useMutation({
-    mutationFn: async (data) => {
+  const mutation = useMutation<void, Error, Omit<Song, "id">>({
+    mutationFn: async (data: Omit<Song, "id">) => {
       await musicService.createSong(data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["canciones"]); // refresca la lista
+      queryClient.invalidateQueries({ queryKey: ["canciones"] }); // refresca la lista
       navigate("/canciones");
     },
   });
@@ -70,10 +71,10 @@ export default function NuevaCancion() {
 
         <button
           type="submit"
-          disabled={mutation.isLoading}
+          disabled={mutation.isPending}
           className="bg-blue-600 text-white px-4 py-2 rounded"
         >
-          {mutation.isLoading ? "Agregando..." : "Agregar canción"}
+          {mutation.isPending ? "Agregando..." : "Agregar canción"}
         </button>
 
         {mutation.isSuccess && (

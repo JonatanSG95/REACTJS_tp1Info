@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import React from 'react';
 import { musicService } from "../../MOCKS/music/service";
-import type { Cancion } from "../types/Cancion";
 import CancionCard from "../components/CancionCard";
 import { Link } from "react-router-dom";
+import type { Song } from "../../MOCKS/music/music";
 
 export default function ListaCanciones() {
-  const [canciones, setCanciones] = useState([]);
+  const [canciones, setCanciones] = useState<Song[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,7 +41,7 @@ export default function ListaCanciones() {
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Todas las canciones</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {canciones.map((cancion) => (
+        {canciones.map((cancion: Song) => (
           <div key={cancion.id}>
             <CancionCard cancion={cancion} />
             <Link

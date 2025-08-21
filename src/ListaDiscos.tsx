@@ -1,5 +1,4 @@
-import React from 'react';
-import { ledZeppelin, acdc, queen, pinkFloyd } from './InfoDiscos';
+
 import { Link } from 'react-router-dom';
 
 
@@ -30,11 +29,11 @@ const ListaDiscos = ({ titulo, albums }: ListaDiscosProps) => (
         >
           <img
             src={album.cover}
-            alt={album.titulo}
+            alt={album.title}
             className="w-full h-full object-cover rounded mb-2"
           />
-          <p className="text-center font-medium text-sm">{album.titulo}</p>
-          <p className="text-xs text-neutral-400">{album.anio}</p>
+          <p className="text-center font-medium text-sm">{album.title}</p>
+          <p className="text-xs text-neutral-400">{album.year}</p>
 </div>
       ))}
     </div>

@@ -1,4 +1,4 @@
-import { musicDB, getNextId } from './music.js';
+import { musicDB, type Song } from './music.js';
 
 // Simulate API delay
 const delay = (ms = 500) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -17,11 +17,11 @@ export const musicService = {
   },
 
   // GET song by ID
-  async getSongById(id) {
+  async getSongById(id: string) {
     await delay(200);
     const stored = localStorage.getItem('musicDB');
     const songs = stored ? JSON.parse(stored) : musicDB;
-    const song = songs.find((s) => s.id === parseInt(id));
+    const song = songs.find((s: Song) => s.id === parseInt(id));
     if (!song) {
       throw new Error('Song not found');
     }
@@ -29,7 +29,7 @@ export const musicService = {
   },
 
   // GET songs by genre
-  async getSongsByGenre(genre) {
+  async getSongsByGenre(genre: string) {
     await delay(200);
     const stored = localStorage.getItem('musicDB');
     const songs = stored ? JSON.parse(stored) : musicDB;
@@ -38,13 +38,13 @@ export const musicService = {
       throw new Error('Genre parameter is required');
     }
 
-    return songs.filter((song) =>
+    return songs.filter((song: Song) =>
       song.genre.some((g) => g.toLowerCase() === genre.toLowerCase())
     );
   },
 
   // GET songs by artist
-  async getSongsByArtist(artist) {
+  async getSongsByArtist(artist: string) {
     await delay(200);
     const stored = localStorage.getItem('musicDB');
     const songs = stored ? JSON.parse(stored) : musicDB;
@@ -53,7 +53,7 @@ export const musicService = {
       throw new Error('Artist parameter is required');
     }
 
-    return songs.filter((song) =>
+    return songs.filter((song: Song) =>
       song.artist.toLowerCase().includes(artist.toLowerCase())
     );
   },
@@ -64,9 +64,9 @@ export const musicService = {
     const stored = localStorage.getItem('musicDB');
     const songs = stored ? JSON.parse(stored) : musicDB;
 
-    const genreMap = {};
+    const genreMap: Record<string, Song[]> = {};
 
-    songs.forEach((song) => {
+    songs.forEach((song: Song) => {
       song.genre.forEach((genre) => {
         if (!genreMap[genre]) {
           genreMap[genre] = [];
@@ -85,7 +85,7 @@ export const musicService = {
   },
 
   // POST - Create new song
-  async createSong(songData) {
+  async createSong(songData: Omit<Song, "id">) {
     await delay(400);
     const stored = localStorage.getItem('musicDB');
     const songs = stored ? JSON.parse(stored) : [...musicDB];
@@ -104,12 +104,12 @@ export const musicService = {
   },
 
   // PUT - Update existing song
-  async updateSong(id, songData) {
+  async updateSong(id: string, songData: Song) {
     await delay(400);
     const stored = localStorage.getItem('musicDB');
     const songs = stored ? JSON.parse(stored) : [...musicDB];
 
-    const index = songs.findIndex((s) => s.id === parseInt(id));
+    const index = songs.findIndex((s: Song) => s.id === parseInt(id));
     if (index === -1) {
       throw new Error('Song not found');
     }
@@ -120,12 +120,12 @@ export const musicService = {
   },
 
   // DELETE song
-  async deleteSong(id) {
+  async deleteSong(id: string) {
     await delay(300);
     const stored = localStorage.getItem('musicDB');
     const songs = stored ? JSON.parse(stored) : [...musicDB];
 
-    const index = songs.findIndex((s) => s.id === parseInt(id));
+    const index = songs.findIndex((s: Song) => s.id === parseInt(id));
     if (index === -1) {
       throw new Error('Song not found');
     }
@@ -136,7 +136,7 @@ export const musicService = {
   },
 
   // Search songs
-  async searchSongs(query) {
+  async searchSongs(query: string) {
     await delay(200);
     const stored = localStorage.getItem('musicDB');
     const songs = stored ? JSON.parse(stored) : musicDB;
@@ -144,7 +144,7 @@ export const musicService = {
     if (!query) return songs;
 
     return songs.filter(
-      (song) =>
+      (song: Song) =>
         song.title.toLowerCase().includes(query.toLowerCase()) ||
         song.artist.toLowerCase().includes(query.toLowerCase()) ||
         song.album.toLowerCase().includes(query.toLowerCase()) ||
